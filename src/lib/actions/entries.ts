@@ -15,7 +15,9 @@ export type EntryActionState = {
   success?: boolean;
 };
 
-const UPLOAD_DIR = path.join(process.cwd(), "public/uploads");
+const DEFAULT_UPLOAD_DIR = path.join(process.cwd(), "public/uploads");
+const DATA_ROOT = process.env.DATA_ROOT;
+const UPLOAD_DIR = DATA_ROOT ? path.join(DATA_ROOT, "uploads") : DEFAULT_UPLOAD_DIR;
 
 async function persistPhoto(file: File, existingPath?: string) {
   if (!file || file.size === 0) {
