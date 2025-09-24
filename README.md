@@ -27,6 +27,8 @@ npm run dev
 SESSION_PASSWORD="至少32位的随机字符串"
 # 本地开发可忽略；部署到 Render 时设置为挂载卷路径（例如 /data）
 # DATA_ROOT="/data"
+# 若部署在 HTTP 环境(如自建轻量服务器)，需关闭安全 cookie
+# COOKIE_SECURE=false
 ```
 
 ## ☁️ Render 免费部署指引
