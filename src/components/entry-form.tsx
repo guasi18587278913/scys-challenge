@@ -67,7 +67,7 @@ export function EntryForm({
   return (
     <form
       action={formAction}
-      className="flex flex-col gap-6 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_18px_50px_rgba(97,82,73,0.18)]"
+      className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/80 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:gap-6 sm:p-6"
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -185,10 +185,16 @@ export function EntryForm({
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-neutral-600">拍一下你的电子秤照片</label>
+        <label className="text-sm font-medium text-neutral-600">三餐照片（可选）</label>
         <div className="flex flex-wrap items-center gap-3">
-          <input type="file" name="mealPhoto" accept="image/*" className="text-xs" />
-          <span className="text-xs text-neutral-500">可选，最大 5MB</span>
+          <input
+            type="file"
+            name="mealPhoto"
+            accept="image/*"
+            capture="environment"
+            className="text-xs"
+          />
+          <span className="text-xs text-neutral-500">直接拍摄或选择相册，最大 5MB</span>
         </div>
       </div>
 
@@ -203,13 +209,19 @@ export function EntryForm({
         />
       </div>
 
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <label className="flex w-full items-center justify-between gap-3 rounded-2xl border border-white/60 bg-white/70 px-4 py-3 text-sm text-neutral-600 md:w-auto">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <label className="flex w-full items-center justify-between gap-3 rounded-2xl border border-white/60 bg-white/70 px-4 py-3 text-sm text-neutral-600 sm:w-auto">
           <div className="space-y-1">
             <p className="font-medium text-ink">进度照片</p>
             <p className="text-xs text-neutral-500">支持 jpg/png，最大 5MB</p>
           </div>
-          <input type="file" name="photo" accept="image/*" className="text-xs" />
+          <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            capture="environment"
+            className="text-xs"
+          />
         </label>
         <label className="flex items-center gap-2 text-sm text-neutral-600">
           <input

@@ -89,14 +89,14 @@ export default async function DashboardPage() {
   );
 
   return (
-    <div className="space-y-8">
-      <section className="grid gap-6 lg:grid-cols-[1.45fr_1fr]">
-        <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-8 shadow-[0_26px_60px_rgba(110,96,85,0.18)]">
+    <div className="space-y-6 sm:space-y-8">
+      <section className="grid gap-5 lg:grid-cols-[1.45fr_1fr]">
+        <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-5 shadow-[0_26px_60px_rgba(110,96,85,0.18)] sm:p-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(255,196,153,0.35),transparent),radial-gradient(circle_at_90%_15%,rgba(214,208,255,0.3),transparent)]" />
           <div className="relative flex h-full flex-col gap-6">
             <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.4em] text-neutral-400">我的今日重点</p>
-              <h1 className="text-3xl font-semibold text-ink">{personal.target.userDisplayName}</h1>
+              <p className="text-[11px] uppercase tracking-[0.4em] text-neutral-400 sm:text-xs">我的今日重点</p>
+              <h1 className="text-2xl font-semibold text-ink sm:text-3xl">{personal.target.userDisplayName}</h1>
               <p className="text-sm text-neutral-500">{challenge.label}</p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -147,7 +147,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_20px_50px_rgba(110,96,85,0.15)]">
+        <div className="flex flex-col gap-4 rounded-3xl border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(110,96,85,0.15)] sm:p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-ink">挑战速览</h2>
             <span className="text-xs text-neutral-400">{formatDate(challenge.startOn)} - {formatDate(challenge.endOn)}</span>
@@ -180,7 +180,7 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section id="team" className="rounded-3xl border border-white/60 bg-white/75 p-6 shadow-[0_20px_50px_rgba(110,96,85,0.15)]">
+      <section id="team" className="rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_20px_50px_rgba(110,96,85,0.15)] sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-lg font-semibold text-ink">团队状态</h2>
           <span className="text-xs text-neutral-400">谁已经完成，谁需要鼓励</span>
@@ -234,8 +234,8 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[3fr_2fr]">
-        <div className="flex flex-col gap-6 rounded-3xl border border-white/60 bg-white/75 p-6 shadow-[0_18px_50px_rgba(97,82,73,0.18)]">
+      <section className="grid gap-5 sm:gap-6 lg:grid-cols-[3fr_2fr]">
+        <div className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:gap-6 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-semibold text-ink">体重趋势</h3>
@@ -250,7 +250,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 rounded-3xl border border-white/60 bg-white/75 p-6 shadow-[0_18px_50px_rgba(97,82,73,0.18)]">
+        <div className="flex flex-col gap-4 rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:p-6">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-ink">备注精选</h3>
             <span className="text-xs text-neutral-400">最新 {notes.length} 条</span>
@@ -283,12 +283,12 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-white/60 bg-white/75 p-6 shadow-[0_18px_50px_rgba(97,82,73,0.18)]">
+      <section className="rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:p-6">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-ink">挑战历史</h3>
           <span className="text-xs text-neutral-400">最近 {Math.min(history.length, 2)} 次</span>
         </div>
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <div className="mt-5 grid gap-4 lg:grid-cols-2">
           {history.slice(0, 2).map(({ challenge: item, summary: challengeSummary }) => {
             const achievedCount = challengeSummary.filter((entry) => entry.achieved).length;
             return (

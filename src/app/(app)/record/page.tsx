@@ -62,7 +62,7 @@ export default async function RecordPage() {
   );
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[3fr_2fr]">
+    <div className="grid gap-5 xl:grid-cols-[3fr_2fr]">
       <EntryForm
         challenge={{
           startOn: challenge.startOn,
@@ -75,7 +75,7 @@ export default async function RecordPage() {
         sharePhotosByDefault={user.preferences.sharePhotosByDefault}
       />
 
-      <aside className="flex flex-col gap-6 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_18px_50px_rgba(97,82,73,0.18)]">
+      <aside className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/80 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:gap-6 sm:p-6">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-ink">近期记录</h3>
           <span className="text-xs text-neutral-400">最新 {recentEntries.length} 条</span>

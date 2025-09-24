@@ -31,8 +31,8 @@ export default async function AppLayout({
   const initials = currentUser.displayName.slice(0, 1);
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-14 pt-6 sm:px-6 lg:px-8">
-      <header className="sticky top-6 z-30 flex flex-wrap items-center justify-between gap-4 rounded-full border border-white/50 bg-white/75 px-5 py-4 shadow-[0_18px_40px_rgba(117,100,90,0.18)] backdrop-blur">
+    <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-14 pt-4 sm:px-6 lg:px-8">
+      <header className="sticky top-4 z-30 flex flex-col gap-3 rounded-3xl border border-white/50 bg-white/80 px-4 py-3 shadow-[0_18px_40px_rgba(117,100,90,0.18)] backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-full sm:px-5 sm:py-4">
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
@@ -47,18 +47,18 @@ export default async function AppLayout({
           </div>
         </div>
 
-        <div className="flex flex-1 items-center justify-center">
+        <div className="-mx-1 w-full overflow-x-auto pb-1 sm:mx-0 sm:flex sm:flex-1 sm:justify-center sm:overflow-visible">
           <NavTabs items={NAV_ITEMS} />
         </div>
 
-        <div className="flex items-center gap-3 text-sm text-neutral-500">
+        <div className="flex items-center justify-between gap-3 text-sm text-neutral-500 sm:w-auto">
           <Link
             href="/dashboard#team"
             className="hidden rounded-full border border-white/60 bg-white/70 px-3 py-1 text-xs font-medium text-neutral-500 transition hover:text-ink sm:inline-flex"
           >
             团队状态
           </Link>
-          <div className="flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-2">
+          <div className="flex flex-1 items-center justify-between gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-2 sm:flex-none">
             <span
               className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium text-white"
               style={{ backgroundColor: currentUser.colorHex }}
@@ -74,7 +74,7 @@ export default async function AppLayout({
         </div>
       </header>
 
-      <main className="mt-8 flex-1" id="content">
+      <main className="mt-6 flex-1 sm:mt-8" id="content">
         {children}
       </main>
     </div>
