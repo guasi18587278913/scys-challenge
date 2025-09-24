@@ -1,8 +1,7 @@
-import path from "path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: path.join(__dirname, ".."),
+  // 配置留空，使用默认设置
 };
 
 export default nextConfig;
