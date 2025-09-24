@@ -1,0 +1,15 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "regions": ["hkg1"],
+  "functions": {
+    "src/app/api/health/route.ts": {
+      "maxDuration": 10
+    },
+    "src/app/**/*.tsx": {
+      "maxDuration": 30
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "users": [
+    {
+      "id": "sang",
+      "username": "桑桑",
+      "displayName": "桑桑",
+      "passwordHash": "$2b$12$bK/4aThnmYC02JhXzLT8oehmcK3MXdGjt0ZdRl3SdTGSElSRol5MS",
+      "colorHex": "#FF8A5C",
+      "preferences": {
+        "metrics": ["weight", "exerciseMinutes"],
+        "sharePhotosByDefault": false
+      },
+      "createdAt": "2024-09-01T00:00:00.000Z",
+      "updatedAt": "2024-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "gua",
+      "username": "瓜斯",
+      "displayName": "瓜斯",
+      "passwordHash": "$2b$12$bK/4aThnmYC02JhXzLT8oehmcK3MXdGjt0ZdRl3SdTGSElSRol5MS",
+      "colorHex": "#46A0FF",
+      "preferences": {
+        "metrics": ["weight"],
+        "sharePhotosByDefault": false
+      },
+      "createdAt": "2024-09-01T00:00:00.000Z",
+      "updatedAt": "2024-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "bi",
+      "username": "必得",
+      "displayName": "必得",
+      "passwordHash": "$2b$12$bK/4aThnmYC02JhXzLT8oehmcK3MXdGjt0ZdRl3SdTGSElSRol5MS",
+      "colorHex": "#5BC49F",
+      "preferences": {
+        "metrics": ["weight"],
+        "sharePhotosByDefault": false
+      },
+      "createdAt": "2024-09-01T00:00:00.000Z",
+      "updatedAt": "2024-09-01T00:00:00.000Z"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "week-2024-09-23",
+      "label": "第一周减重挑战",
+      "startOn": "2024-09-23T00:00:00.000Z",
+      "endOn": "2024-09-30T23:59:59.999Z",
+      "rules": "9/23-9/30 23:59 前完成各自目标",
+      "penalty": "未完成需乐捐70元"
+    }
+  ],
+  "targets": [
+    {
+      "id": "target-桑桑-2024-09-23",
+      "challengeId": "week-2024-09-23",
+      "userId": "sang",
+      "targetDeltaKg": 0.5,
+      "penaltyStatus": "PENDING"
+    },
+    {
+      "id": "target-瓜斯-2024-09-23",
+      "challengeId": "week-2024-09-23",
+      "userId": "gua",
+      "targetDeltaKg": 0.7,
+      "penaltyStatus": "PENDING"
+    },
+    {
+      "id": "target-必得-2024-09-23",
+      "challengeId": "week-2024-09-23",
+      "userId": "bi",
+      "targetDeltaKg": 0.7,
+      "penaltyStatus": "PENDING"
+    }
+  ],
+  "entries": []
+}

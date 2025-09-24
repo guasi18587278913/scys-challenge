@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --sand-50: #f7f4f0;
+  --sand-100: #ede7e1;
+  --mist-100: #e9e3ff;
+  --mist-200: #d6d0fa;
+  --ink: #2f2a28;
+  --muted: #5c5551;
+  --card: rgba(255, 255, 255, 0.85);
+  --border: rgba(80, 60, 50, 0.08);
+  --shadow-elevated: 0 20px 45px rgba(46, 36, 32, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background-color: var(--sand-50);
+  color: var(--ink);
+}
+
+.bg-base {
+  background-color: var(--sand-50);
+}
+
+.text-ink {
+  color: var(--ink);
+}
+
+.bg-canvas {
+  background:
+    radial-gradient(1200px circle at 12% 10%, rgba(255, 196, 153, 0.22), transparent),
+    radial-gradient(900px circle at 88% 6%, rgba(233, 227, 255, 0.28), transparent),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 244, 240, 1));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
 }
