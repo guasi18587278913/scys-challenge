@@ -7,7 +7,6 @@
       "passwordHash": "$2b$12$bK/4aThnmYC02JhXzLT8oehmcK3MXdGjt0ZdRl3SdTGSElSRol5MS",
       "colorHex": "#FF8A5C",
       "preferences": {
-        "metrics": ["weight", "exerciseMinutes"],
         "sharePhotosByDefault": false
       },
       "createdAt": "2024-09-01T00:00:00.000Z",
@@ -20,7 +19,6 @@
       "passwordHash": "$2b$12$bK/4aThnmYC02JhXzLT8oehmcK3MXdGjt0ZdRl3SdTGSElSRol5MS",
       "colorHex": "#46A0FF",
       "preferences": {
-        "metrics": ["weight"],
         "sharePhotosByDefault": false
       },
       "createdAt": "2024-09-01T00:00:00.000Z",
@@ -33,7 +31,6 @@
       "passwordHash": "$2b$12$bK/4aThnmYC02JhXzLT8oehmcK3MXdGjt0ZdRl3SdTGSElSRol5MS",
       "colorHex": "#5BC49F",
       "preferences": {
-        "metrics": ["weight"],
         "sharePhotosByDefault": false
       },
       "createdAt": "2024-09-01T00:00:00.000Z",

@@ -7,7 +7,6 @@ export type UserRecord = {
   passwordHash: string;
   colorHex: string;
   preferences: {
-    metrics: string[];
     sharePhotosByDefault: boolean;
   };
   createdAt: string;
@@ -38,15 +37,6 @@ export type DailyEntryRecord = {
   userId: string;
   date: string;
   weightKg: number;
-  exerciseMinutes?: number;
-  activityType?: string;
-  meals?: {
-    breakfast?: string;
-    lunch?: string;
-    dinner?: string;
-  };
-  mealPhotoPath?: string;
-  note?: string;
   photoPath?: string;
   photoShared?: boolean;
   createdAt: string;

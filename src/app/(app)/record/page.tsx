@@ -4,7 +4,6 @@ import { EntryForm } from "@/components/entry-form";
 import { getSession } from "@/lib/session";
 import { findUserById } from "@/lib/auth";
 import { getChallengeContext } from "@/lib/data-service";
-import { METRIC_OPTIONS } from "@/lib/constants";
 
 function clampDate(date: Date, start: Date, end: Date) {
   if (date < start) return start;
@@ -45,21 +44,12 @@ export default async function RecordPage() {
     id: entry.id,
     date: entry.date,
     weightKg: entry.weightKg,
-    exerciseMinutes: entry.exerciseMinutes,
-    activityType: entry.activityType,
-    meals: entry.meals,
-    mealPhotoPath: entry.mealPhotoPath,
-    note: entry.note,
     photoPath: entry.photoPath,
     photoShared: entry.photoShared,
   }));
 
   const sortedForList = [...userEntries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const recentEntries = sortedForList.slice(0, 6);
-
-  const preferredMetrics = METRIC_OPTIONS.filter((metric) =>
-    user.preferences.metrics.includes(metric.key)
-  );
 
   return (
     <div className="grid gap-5 xl:grid-cols-[3fr_2fr]">
@@ -71,7 +61,6 @@ export default async function RecordPage() {
         }}
         defaultDate={defaultDate}
         entries={entryLite}
-        metricOptions={preferredMetrics}
         sharePhotosByDefault={user.preferences.sharePhotosByDefault}
       />
 
@@ -101,28 +90,11 @@ export default async function RecordPage() {
                           : `较前一日 ${delta.toFixed(1)} kg`
                         : "首次记录"}
                     </p>
-                    {entry.activityType ? (
-                      <p className="mt-1 text-xs text-neutral-500">活动：{entry.activityType}</p>
-                    ) : null}
-                    {entry.meals ? (
-                      <p className="mt-1 text-xs text-neutral-500">
-                        饮食：
-                        {[entry.meals.breakfast, entry.meals.lunch, entry.meals.dinner]
-                          .filter(Boolean)
-                          .join(" / ") || "-"}
-                      </p>
-                    ) : null}
                   </div>
                   <div className="text-right">
                     <p className="text-lg font-semibold text-ink">{entry.weightKg.toFixed(1)} kg</p>
                     <p className="text-xs text-neutral-400">
-                      {entry.photoPath
-                        ? "进度照片"
-                        : entry.mealPhotoPath
-                        ? "餐食照片"
-                        : entry.note
-                        ? "有备注"
-                        : "仅体重"}
+                      {entry.photoPath ? "已上传秤面" : "仅体重"}
                     </p>
                   </div>
                 </div>

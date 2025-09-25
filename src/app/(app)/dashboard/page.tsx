@@ -50,30 +50,6 @@ export default async function DashboardPage() {
   const streakText = personalLoggedToday ? "今日已打卡" : "今日尚未记录";
   const riskMembers = summary.filter((item) => !item.achieved);
 
-  const notes = summary
-    .flatMap((item) =>
-      (item.progress?.entries ?? [])
-        .filter((entry) => entry.note && entry.note.trim().length > 0)
-        .map((entry) => ({
-          id: entry.id,
-          note: entry.note!,
-          date: entry.date,
-          name: item.target.userDisplayName,
-          color: item.target.colorHex,
-        }))
-    )
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 2);
-
-  const chartSeries = summary.map((item) => ({
-    label: item.target.userDisplayName,
-    color: item.target.colorHex,
-    data: (item.progress?.entries ?? []).map((entry) => ({
-      date: entry.date,
-      value: entry.weightKg,
-    })),
-  }));
-
   const challenges = await listChallenges();
   const history = await Promise.all(
     challenges.slice(0, 4).map(async (item) => {
@@ -136,12 +112,6 @@ export default async function DashboardPage() {
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#f3c5a3] via-[#f1d3bd] to-[#d7d0ff] px-6 py-3 text-sm font-semibold text-ink shadow-[0_16px_32px_rgba(156,120,102,0.25)] transition hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(123,101,90,0.35)]"
               >
                 立即记录
-              </Link>
-              <Link
-                href={`/challenges/${challenge.id}`}
-                className="inline-flex items-center justify-center rounded-2xl border border-white/60 bg-white/70 px-6 py-3 text-sm font-semibold text-neutral-600 transition hover:text-ink"
-              >
-                查看挑战详情
               </Link>
             </div>
           </div>
@@ -235,50 +205,26 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid gap-5 sm:gap-6 lg:grid-cols-[3fr_2fr]">
-        <div className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:gap-6 sm:p-6">
+        <div className="rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:p-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-ink">体重趋势</h3>
-              <p className="text-sm text-neutral-500">按周比较三人走势，查看波动与收敛</p>
-            </div>
+            <h3 className="text-lg font-semibold text-ink">体重趋势</h3>
             <span className="rounded-full bg-neutral-200/60 px-3 py-1 text-xs text-neutral-600">
-              {formatDate(challenge.startOn)} 至 {formatDate(challenge.endOn)}
+              最近 7 天
             </span>
           </div>
-          <div className="h-72 w-full">
-            <TrendChart series={chartSeries} />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 rounded-3xl border border-white/60 bg-white/75 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:p-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-ink">备注精选</h3>
-            <span className="text-xs text-neutral-400">最新 {notes.length} 条</span>
-          </div>
-          <div className="space-y-3">
-            {notes.length === 0 ? (
-              <p className="text-sm text-neutral-500">暂无备注，记录一下今日的感受吧。</p>
-            ) : (
-              notes.map((item) => (
-                <div
-                  key={item.id}
-                  className="rounded-2xl border border-white/60 bg-white/80 px-4 py-3 text-sm text-neutral-600"
-                >
-                  <div className="mb-1 flex items-center gap-2 text-xs text-neutral-400">
-                    <span
-                      className="inline-flex h-6 w-6 items-center justify-center rounded-full text-[11px] text-white"
-                      style={{ backgroundColor: item.color }}
-                    >
-                      {item.name.slice(0, 1)}
-                    </span>
-                    <span>{item.name}</span>
-                    <span>·</span>
-                    <span>{formatDate(item.date)}</span>
-                  </div>
-                  <p>{item.note}</p>
-                </div>
-              ))
-            )}
+          <div className="mt-4 h-48 w-full sm:h-72">
+            <TrendChart
+              series={[
+                {
+                  label: personal.target.userDisplayName,
+                  color: personal.target.colorHex,
+                  data: (personal.progress?.entries ?? []).map((entry) => ({
+                    date: entry.date,
+                    value: entry.weightKg,
+                  })),
+                },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -331,13 +277,6 @@ export default async function DashboardPage() {
             );
           })}
         </div>
-        {history.length > 2 ? (
-          <div className="mt-4 text-right">
-            <Link href="/challenges" className="text-sm text-neutral-500 underline hover:text-ink">
-              查看全部挑战记录 →
-            </Link>
-          </div>
-        ) : null}
       </section>
     </div>
   );

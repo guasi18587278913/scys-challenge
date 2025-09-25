@@ -69,10 +69,10 @@ export default async function TeamLogPage({
           </p>
         </div>
         <Link
-          href={`/challenges/${challengeId}`}
+          href="/dashboard"
           className="rounded-full border border-white/60 bg-white/70 px-4 py-2 text-sm text-neutral-600 transition hover:text-ink"
         >
-          返回挑战详情
+          返回主页
         </Link>
       </header>
 
@@ -147,7 +147,6 @@ export default async function TeamLogPage({
                 <div className="space-y-3">
                   {logsForDate.map((log) => {
                     const entry = log.entry;
-                    const meals = entry.meals;
                     return (
                       <div
                         key={entry.id}
@@ -167,34 +166,7 @@ export default async function TeamLogPage({
                             体重 {entry.weightKg.toFixed(1)} kg
                           </span>
                         </div>
-
-                        {entry.activityType || entry.exerciseMinutes ? (
-                          <p className="mt-2 text-xs text-neutral-500">
-                            运动：{entry.activityType ?? "-"}
-                            {entry.exerciseMinutes ? ` · ${entry.exerciseMinutes} 分钟` : ""}
-                          </p>
-                        ) : null}
-
-                        {meals && (meals.breakfast || meals.lunch || meals.dinner) ? (
-                          <p className="mt-2 text-xs text-neutral-500">
-                            饮食：
-                            {[meals.breakfast, meals.lunch, meals.dinner]
-                              .filter(Boolean)
-                              .join(" / ")}
-                          </p>
-                        ) : null}
-
                         <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
-                          {entry.mealPhotoPath ? (
-                            <a
-                              href={entry.mealPhotoPath}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="underline hover:text-ink"
-                            >
-                              查看餐食照片
-                            </a>
-                          ) : null}
                           {entry.photoShared && entry.photoPath ? (
                             <a
                               href={entry.photoPath}
@@ -206,12 +178,6 @@ export default async function TeamLogPage({
                             </a>
                           ) : null}
                         </div>
-
-                        {entry.note ? (
-                          <p className="mt-2 rounded-xl border border-white/60 bg-white/80 px-3 py-2 text-xs text-neutral-500">
-                            备注：{entry.note}
-                          </p>
-                        ) : null}
                       </div>
                     );
                   })}

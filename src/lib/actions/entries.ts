@@ -52,12 +52,6 @@ export async function saveEntryAction(_: EntryActionState, formData: FormData): 
     userId: session.userId,
     date: rawDate?.toString() ?? "",
     weightKg: rawWeight?.toString() ?? "",
-    exerciseMinutes: formData.get("exerciseMinutes")?.toString() ?? undefined,
-    activityType: formData.get("activityType")?.toString() ?? undefined,
-    breakfast: formData.get("breakfast")?.toString() ?? undefined,
-    lunch: formData.get("lunch")?.toString() ?? undefined,
-    dinner: formData.get("dinner")?.toString() ?? undefined,
-    note: formData.get("note")?.toString() ?? undefined,
     photoShared: formData.get("photoShared") === "on",
   };
 
@@ -78,9 +72,7 @@ export async function saveEntryAction(_: EntryActionState, formData: FormData): 
 
   const previous = await findEntryByUserAndDate(session.userId, parsed.data.date);
   const photoFile = formData.get("photo");
-  const mealPhotoFile = formData.get("mealPhoto");
   let photoPath = previous?.photoPath;
-  let mealPhotoPath = previous?.mealPhotoPath;
 
   if (photoFile instanceof File && photoFile.size > 0) {
     if (photoFile.size > 5 * 1024 * 1024) {
@@ -89,32 +81,12 @@ export async function saveEntryAction(_: EntryActionState, formData: FormData): 
     photoPath = await persistPhoto(photoFile, previous?.photoPath);
   }
 
-  if (mealPhotoFile instanceof File && mealPhotoFile.size > 0) {
-    if (mealPhotoFile.size > 5 * 1024 * 1024) {
-      return { error: "三餐照片请控制在 5MB 以下" };
-    }
-    mealPhotoPath = await persistPhoto(mealPhotoFile, previous?.mealPhotoPath);
-  }
-
   const now = new Date().toISOString();
-  const meals =
-    parsed.data.breakfast || parsed.data.lunch || parsed.data.dinner
-      ? {
-          breakfast: parsed.data.breakfast,
-          lunch: parsed.data.lunch,
-          dinner: parsed.data.dinner,
-        }
-      : undefined;
   const entry: DailyEntryRecord = {
     id: previous?.id ?? parsed.data.id ?? randomUUID(),
     userId: session.userId,
     date: parsed.data.date,
     weightKg: Number(parsed.data.weightKg),
-    exerciseMinutes: parsed.data.exerciseMinutes ? Number(parsed.data.exerciseMinutes) : undefined,
-    activityType: parsed.data.activityType,
-    meals: meals ?? previous?.meals,
-    mealPhotoPath,
-    note: parsed.data.note?.trim() ? parsed.data.note.trim() : undefined,
     photoPath,
     photoShared: parsed.data.photoShared ?? false,
     createdAt: previous?.createdAt ?? now,
@@ -141,7 +113,6 @@ export async function saveEntryAction(_: EntryActionState, formData: FormData): 
 
   revalidatePath("/dashboard");
   revalidatePath("/record");
-  revalidatePath("/challenges");
 
   return { success: true };
 }
@@ -153,7 +124,6 @@ export async function deleteEntryAction(entryId: string) {
   }
 
   let removedPhoto: string | undefined;
-  let removedMealPhoto: string | undefined;
 
   await updateDb((draft) => {
     const entry = draft.entries.find((item) => item.id === entryId);
@@ -161,7 +131,6 @@ export async function deleteEntryAction(entryId: string) {
       return;
     }
     removedPhoto = entry.photoPath;
-    removedMealPhoto = entry.mealPhotoPath;
     draft.entries = draft.entries.filter((item) => item.id !== entryId);
   });
 
@@ -170,14 +139,8 @@ export async function deleteEntryAction(entryId: string) {
     fs.rm(filePath, { force: true }).catch(() => undefined);
   }
 
-  if (removedMealPhoto) {
-    const filePath = path.join(process.cwd(), "public", removedMealPhoto.replace(/^\/+/, ""));
-    fs.rm(filePath, { force: true }).catch(() => undefined);
-  }
-
   revalidatePath("/dashboard");
   revalidatePath("/record");
-  revalidatePath("/challenges");
 
   return { success: true };
 }
