@@ -17,7 +17,7 @@ export async function loginAction(_: LoginState, formData: FormData): Promise<Lo
     remember: data.remember === "on",
   });
 
-  const redirectTo = typeof data.redirect === "string" && data.redirect ? data.redirect : "/dashboard";
+  const redirectTo = typeof data.redirect === "string" && data.redirect ? data.redirect : "/record";
 
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "请输入完整信息" };
