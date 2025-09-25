@@ -23,20 +23,12 @@ export default async function LoginPage({
       </div>
       <div className="mx-auto flex w-full max-w-5xl flex-col-reverse items-center gap-8 lg:flex-row lg:items-start lg:gap-16">
         <div className="max-w-sm space-y-5 text-center lg:text-left">
-          <p className="inline-flex rounded-full border border-white/60 bg-white/70 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.4em] text-neutral-500 sm:px-4 sm:py-2 sm:text-xs">
-            Weekly Balance
-          </p>
-          <h2 className="text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-            三人同行的轻盈计划
-          </h2>
+          <h1 className="text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+            每天准时上秤，否则奖金立刻送人。
+          </h1>
           <p className="text-sm leading-relaxed text-neutral-600 sm:text-base">
-            每天两分钟，称重 + 拍照即可守住奖金池。自动计算罚没与分配，让挑战轻松又有仪式感。
+            进入房间 → 当日 00:00 前称重并拍秤面照片 → 守住自己的奖金份额。
           </p>
-          <ul className="space-y-3 text-sm text-neutral-500">
-            <li>· 私密房间，记录仅挑战成员可见</li>
-            <li>· 每日 00:00 前称重+拍照，逾期奖金立刻罚没</li>
-            <li>· 周末自动结算奖金池，输赢一目了然</li>
-          </ul>
         </div>
         <Suspense fallback={<div className="h-96 w-full max-w-md rounded-3xl bg-white/50" />}>
           <LoginForm users={users} redirectTo={redirectTo} />
