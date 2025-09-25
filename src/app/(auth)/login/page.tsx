@@ -33,9 +33,9 @@ export default async function LoginPage({
             每天两分钟，称重 + 拍照即可守住奖金池。自动计算罚没与分配，让挑战轻松又有仪式感。
           </p>
           <ul className="space-y-3 text-sm text-neutral-500">
-            <li>· 私密房间，记录只在团队内部可见</li>
-            <li>· 每日打卡守住奖金池，缺卡自动罚没</li>
-            <li>· 周末一键结算，数据图表随时回顾</li>
+            <li>· 私密房间，记录仅挑战成员可见</li>
+            <li>· 每日 00:00 前称重+拍照，逾期奖金立刻罚没</li>
+            <li>· 周末自动结算奖金池，输赢一目了然</li>
           </ul>
         </div>
         <Suspense fallback={<div className="h-96 w-full max-w-md rounded-3xl bg-white/50" />}>

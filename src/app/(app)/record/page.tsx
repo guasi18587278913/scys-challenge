@@ -105,9 +105,9 @@ export default async function RecordPage() {
         <div className="rounded-2xl border border-white/60 bg-white/70 p-4 text-xs text-neutral-500">
           <p>补录说明：</p>
           <ul className="mt-2 space-y-1">
-            <li>· 仅支持在当前挑战周期内选择日期</li>
-            <li>· 上传照片默认私密，可在记录时手动共享</li>
-            <li>· 删除记录会同步更新仪表盘与历史挑战</li>
+            <li>· 打卡需在当日 00:00 前提交，逾期将自动罚没</li>
+            <li>· 仅允许当前挑战周期内的日期</li>
+            <li>· 秤面照片默认仅管理员可见</li>
           </ul>
         </div>
       </aside>

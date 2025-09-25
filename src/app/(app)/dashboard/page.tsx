@@ -31,6 +31,11 @@ export default async function DashboardPage() {
   const challenge = context.challenge;
   const today = new Date();
   const todayKey = today.toISOString().slice(0, 10);
+  const endOfDay = new Date(today);
+  endOfDay.setHours(24, 0, 0, 0);
+  const msUntilDeadline = Math.max(0, endOfDay.getTime() - today.getTime());
+  const hoursUntilDeadline = Math.floor(msUntilDeadline / (1000 * 60 * 60));
+  const minutesUntilDeadline = Math.floor(msUntilDeadline / (1000 * 60)) % 60;
   const start = new Date(challenge.startOn);
   const end = new Date(challenge.endOn);
   const totalDays = differenceInCalendarDays(end, start) + 1;
@@ -124,11 +129,17 @@ export default async function DashboardPage() {
           </div>
           <div className="space-y-3 text-sm text-neutral-600">
             <div className="flex items-center justify-between rounded-2xl border border-white/60 bg-white/80 px-4 py-3">
-              <span>挑战倒计时</span>
-              <div className="text-right">
-                <strong className="block text-ink">{challengeEnded ? "已结束" : `${daysLeft} 天`}</strong>
-                <span className="text-xs text-neutral-400">共 {totalDays} 天周期</span>
+              <div>
+                <span className="block">今日打卡截止</span>
+                <span className="text-xs text-neutral-400">逾期自动罚没</span>
               </div>
+              <strong className="text-ink">
+                {challengeEnded
+                  ? "挑战已结束"
+                  : `${hoursUntilDeadline.toString().padStart(2, "0")} 小时 ${minutesUntilDeadline
+                      .toString()
+                      .padStart(2, "0")} 分`}
+              </strong>
             </div>
             <div className="flex items-center justify-between rounded-2xl border border-white/60 bg-white/80 px-4 py-3">
               <span>今日打卡</span>
@@ -141,6 +152,12 @@ export default async function DashboardPage() {
                   ? "暂无"
                   : `${riskMembers.length} 人待达成`}
               </strong>
+            </div>
+            <div className="rounded-2xl border border-white/60 bg-white/80 px-4 py-3 text-xs text-neutral-500">
+              <p className="font-medium text-neutral-600">挑战倒计时</p>
+              <p className="mt-1 text-neutral-500">
+                {challengeEnded ? "挑战已结束" : `距离结算还有 ${daysLeft} 天（共 ${totalDays} 天周期）`}
+              </p>
             </div>
           </div>
           <p className="mt-2 text-xs text-neutral-500">{challenge.rules}</p>
