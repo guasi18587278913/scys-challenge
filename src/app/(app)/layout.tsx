@@ -6,8 +6,8 @@ import { NavTabs } from "@/components/nav-tabs";
 import { LogoutButton } from "@/components/logout-button";
 
 const NAV_ITEMS = [
-  { href: "/dashboard", label: "主页" },
   { href: "/record", label: "记录" },
+  { href: "/dashboard", label: "查看他人数据" },
 ];
 
 export default async function AppLayout({

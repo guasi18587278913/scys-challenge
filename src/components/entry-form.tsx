@@ -22,11 +22,19 @@ export function EntryForm({
   defaultDate,
   entries,
   sharePhotosByDefault,
+  latestWeight,
+  hasLoggedToday,
+  hoursUntilDeadline,
+  minutesUntilDeadline,
 }: {
   challenge: { startOn: string; endOn: string; label: string };
   defaultDate: string;
   entries: EntryLite[];
   sharePhotosByDefault: boolean;
+  latestWeight?: number;
+  hasLoggedToday?: boolean;
+  hoursUntilDeadline?: number;
+  minutesUntilDeadline?: number;
 }) {
   const [selectedDate, setSelectedDate] = useState(defaultDate);
   const [state, formAction] = useActionState(saveEntryAction, initialState);
@@ -94,26 +102,35 @@ export function EntryForm({
 
       <div key={formKey} className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-600">体重 (kg)</label>
+          <label className="text-sm font-medium text-neutral-600">
+            体重 (kg)
+            {latestWeight && !selectedEntry && (
+              <span className="ml-2 text-xs text-neutral-400">
+                上次记录: {latestWeight.toFixed(1)} kg
+              </span>
+            )}
+          </label>
           <input
             type="number"
             step="0.1"
             name="weightKg"
             defaultValue={selectedEntry?.weightKg ?? ""}
-            placeholder="例如 60.5"
+            placeholder={latestWeight ? `上次: ${latestWeight.toFixed(1)}` : "例如 60.5"}
             required
             className="w-full rounded-2xl border border-white/60 bg-white/70 px-4 py-3 text-base text-ink shadow-inner shadow-white/40 outline-none transition focus:border-neutral-400"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-600">秤面照片</label>
-          <div className="flex items-center gap-3">
+          <label className="text-sm font-medium text-neutral-600">
+            秤面照片 <span className="text-xs text-red-500">必须上传</span>
+          </label>
+          <div className="flex flex-col gap-2">
             <input
               type="file"
               name="photo"
               accept="image/*"
               capture="environment"
-              className="text-xs"
+              className="text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-neutral-100 file:text-neutral-700 hover:file:bg-neutral-200"
               required={!selectedEntry?.photoPath}
             />
             <span className="text-xs text-neutral-500">请拍摄清晰秤面，最大 5MB</span>

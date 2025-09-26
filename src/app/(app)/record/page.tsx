@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { EntryForm } from "@/components/entry-form";
 import { getSession } from "@/lib/session";
 import { findUserById } from "@/lib/auth";
@@ -51,18 +52,50 @@ export default async function RecordPage() {
   const sortedForList = [...userEntries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const recentEntries = sortedForList.slice(0, 6);
 
+  const todayStr = today.toISOString().slice(0, 10);
+  const hasLoggedToday = userEntries.some(e => e.date === todayStr);
+  const latestEntry = sortedForList[0];
+
+  const endOfDay = new Date(today);
+  endOfDay.setHours(23, 59, 59, 999);
+  const msUntilDeadline = Math.max(0, endOfDay.getTime() - today.getTime());
+  const hoursUntilDeadline = Math.floor(msUntilDeadline / (1000 * 60 * 60));
+  const minutesUntilDeadline = Math.floor(msUntilDeadline / (1000 * 60)) % 60;
+
   return (
     <div className="grid gap-5 xl:grid-cols-[3fr_2fr]">
-      <EntryForm
-        challenge={{
-          startOn: challenge.startOn,
-          endOn: challenge.endOn,
-          label: challenge.label,
-        }}
-        defaultDate={defaultDate}
-        entries={entryLite}
-        sharePhotosByDefault={user.preferences.sharePhotosByDefault}
-      />
+      <div className="flex flex-col gap-4">
+        {!hasLoggedToday && (
+          <div className="animate-pulse rounded-2xl border-2 border-red-200 bg-red-50/90 px-5 py-4 shadow-md">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-red-800">今日尚未打卡</p>
+                <p className="text-xs text-red-600 mt-1">
+                  距离罚没截止：{hoursUntilDeadline} 小时 {minutesUntilDeadline} 分钟
+                </p>
+              </div>
+              <div className="text-2xl font-bold text-red-700">
+                {hoursUntilDeadline.toString().padStart(2, '0')}:{minutesUntilDeadline.toString().padStart(2, '0')}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <EntryForm
+          challenge={{
+            startOn: challenge.startOn,
+            endOn: challenge.endOn,
+            label: challenge.label,
+          }}
+          defaultDate={defaultDate}
+          entries={entryLite}
+          sharePhotosByDefault={user.preferences.sharePhotosByDefault}
+          latestWeight={latestEntry?.weightKg}
+          hasLoggedToday={hasLoggedToday}
+          hoursUntilDeadline={hoursUntilDeadline}
+          minutesUntilDeadline={minutesUntilDeadline}
+        />
+      </div>
 
       <aside className="flex flex-col gap-5 rounded-3xl border border-white/60 bg-white/80 p-5 shadow-[0_18px_50px_rgba(97,82,73,0.18)] sm:gap-6 sm:p-6">
         <div className="flex items-center justify-between">
@@ -110,6 +143,13 @@ export default async function RecordPage() {
             <li>· 秤面照片默认仅管理员可见</li>
           </ul>
         </div>
+
+        <Link
+          href="/dashboard"
+          className="inline-flex items-center justify-center rounded-2xl border border-neutral-300 bg-white/80 px-4 py-3 text-sm font-medium text-neutral-700 transition hover:bg-white hover:border-neutral-400"
+        >
+          查看他人状态 →
+        </Link>
       </aside>
     </div>
   );

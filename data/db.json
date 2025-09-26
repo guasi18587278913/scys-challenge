@@ -44,7 +44,9 @@
       "startOn": "2024-09-23T00:00:00.000Z",
       "endOn": "2024-09-30T23:59:59.999Z",
       "rules": "9/23-9/30 23:59 前完成各自目标",
-      "penalty": "未完成需乐捐70元"
+      "penalty": "未完成需乐捐70元",
+      "poolAmount": 210,
+      "penaltyAmount": 70
     }
   ],
   "targets": [

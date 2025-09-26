@@ -20,6 +20,8 @@ export type WeeklyChallengeRecord = {
   endOn: string;
   rules: string;
   penalty: string;
+  poolAmount?: number;
+  penaltyAmount?: number;
 };
 
 export type WeeklyTargetRecord = {
